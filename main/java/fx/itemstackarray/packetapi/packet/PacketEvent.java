@@ -11,7 +11,6 @@ public class PacketEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
-
     // Set the packet
     @Getter
     private final Packet<?> packet;

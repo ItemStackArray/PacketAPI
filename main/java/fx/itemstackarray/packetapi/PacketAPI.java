@@ -12,5 +12,9 @@ public final class PacketAPI extends JavaPlugin {
     private static PacketInjector packetInjector;
 
     @Override
-    public void onEnable() {}
+    public void onEnable() {
+        packetInjector.setDecoder_name("your-decoder-name");
+        packetInjector.setSplitter_name("your-splitter-name");
+        packetInjector.setDecompress_name("your-decompress-name");
+    }
 }

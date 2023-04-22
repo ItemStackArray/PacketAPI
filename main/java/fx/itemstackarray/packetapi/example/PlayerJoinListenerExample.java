@@ -18,7 +18,6 @@ public class PlayerJoinListenerExample implements Listener {
     private void onJoin(final PlayerLoginEvent event) {
         final Player player = event.getPlayer();
         PacketAPI.setPacketInjector(new PacketInjector(player));
-        PacketAPI.getPacketInjector().setInjector_name("your_anticrash_name_decoder");
 
         //Inject the player
         PacketAPI.getPacketInjector().inject();
