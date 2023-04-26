@@ -63,14 +63,20 @@ public class PacketInjector extends MessageToMessageDecoder<Packet<?>> implement
          * Add the pipeline
          */
 
-        if (this.channel.pipeline().get("decoder") != null && this.channel.pipeline().get("splitter") != null && this.channel.pipeline().get("decompress") != null) {
-            this.channel.pipeline().addAfter("decoder", decoder_name, this);
-            this.channel.pipeline().addAfter("splitter", splitter_name, this);
-            this.channel.pipeline().addAfter("decompress", decompress_name, this);
+        // Add a try catch to prevent errors
+
+        try {
+            if (this.channel.pipeline().get("decoder") != null && this.channel.pipeline().get("splitter") != null && this.channel.pipeline().get("decompress") != null) {
+                this.channel.pipeline().addAfter("decoder", decoder_name, this);
+                this.channel.pipeline().addAfter("splitter", splitter_name, this);
+                this.channel.pipeline().addAfter("decompress", decompress_name, this);
+            }
+            this.channel.pipeline().addBefore("decoder", decoder_name, this);
+            this.channel.pipeline().addBefore("splitter", splitter_name, this);
+            this.channel.pipeline().addBefore("decompress", decompress_name, this);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-        this.channel.pipeline().addBefore("decoder", decoder_name, this);
-        this.channel.pipeline().addBefore("splitter", splitter_name, this);
-        this.channel.pipeline().addBefore("decompress", decompress_name, this);
     }
 
 
@@ -95,7 +101,9 @@ public class PacketInjector extends MessageToMessageDecoder<Packet<?>> implement
     protected void decode(final ChannelHandlerContext channelHandlerContext, final Packet<?> packet, final List<Object> list) {
 
         //Call the packet event
-        Bukkit.getPluginManager().callEvent(new PacketEvent(packet, player));
+        final PacketEvent packetEvent = new PacketEvent(packet, player);
+        if (packetEvent.isCancelled()) return;
+        Bukkit.getPluginManager().callEvent(packetEvent);
         list.add(packet);
     }
 }
