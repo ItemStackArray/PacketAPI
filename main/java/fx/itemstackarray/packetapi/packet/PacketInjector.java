@@ -24,7 +24,7 @@ public class PacketInjector extends MessageToMessageDecoder<Packet<?>> implement
     @Getter
     private final Map<String, PacketInjector> injection = new HashMap<>();
 
-    public PacketInjector(Player player) {
+    public PacketInjector(final Player player) {
         this.player = player;
     }
 
@@ -33,10 +33,13 @@ public class PacketInjector extends MessageToMessageDecoder<Packet<?>> implement
      */
 
     @Setter
+    @Getter
     private String decoder_name;
     @Setter
+    @Getter
     private String splitter_name;
     @Setter
+    @Getter
     private String decompress_name;
 
     /**
@@ -67,9 +70,9 @@ public class PacketInjector extends MessageToMessageDecoder<Packet<?>> implement
 
         try {
             if (this.channel.pipeline().get("decoder") != null && this.channel.pipeline().get("splitter") != null && this.channel.pipeline().get("decompress") != null) {
-                this.channel.pipeline().addAfter("decoder", decoder_name, this);
-                this.channel.pipeline().addAfter("splitter", splitter_name, this);
-                this.channel.pipeline().addAfter("decompress", decompress_name, this);
+                this.channel.pipeline().addAfter("decoder", this.getDecoder_name(), this);
+                this.channel.pipeline().addAfter("splitter", this.getSplitter_name(), this);
+                this.channel.pipeline().addAfter("decompress", this.getDecompress_name(), this);
             }
             this.channel.pipeline().addBefore("decoder", decoder_name, this);
             this.channel.pipeline().addBefore("splitter", splitter_name, this);
@@ -88,10 +91,10 @@ public class PacketInjector extends MessageToMessageDecoder<Packet<?>> implement
         final CraftPlayer craftPlayer = (CraftPlayer) this.player;
         this.channel = craftPlayer.getHandle().playerConnection.a().channel;
 
-        if (this.channel.pipeline().get("elysium_decoder") != null && this.channel.pipeline().get("elysium_splitter") != null && this.channel.pipeline().get("elysium_decompress") != null) {
-            channel.pipeline().remove("elysium_decoder");
-            channel.pipeline().remove("elysium_splitter");
-            channel.pipeline().remove("elysium_decompress");
+        if (this.channel.pipeline().get(this.getDecoder_name()) != null && this.channel.pipeline().get(this.getSplitter_name()) != null && this.channel.pipeline().get(this.getDecompress_name()) != null) {
+            channel.pipeline().remove(this.getDecoder_name());
+            channel.pipeline().remove(this.getSplitter_name());
+            channel.pipeline().remove(this.getDecompress_name());
         }
         this.getInjection().remove(this.player.getName());
         this.channel.close();

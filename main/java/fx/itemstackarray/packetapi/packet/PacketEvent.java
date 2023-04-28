@@ -24,7 +24,6 @@ public class PacketEvent extends Event implements Cancellable {
     // Add the constructor
 
     /**
-     *
      * @param packet Set the packet
      * @param player Set the player
      */
@@ -37,7 +36,6 @@ public class PacketEvent extends Event implements Cancellable {
     // Get the handlers
 
     /**
-     *
      * @return handlers
      */
     @Override
@@ -48,7 +46,6 @@ public class PacketEvent extends Event implements Cancellable {
     // Get the handler
 
     /**
-     *
      * @return handlers
      */
     public static HandlerList getHandlerList() {
@@ -61,7 +58,6 @@ public class PacketEvent extends Event implements Cancellable {
     }
 
     /**
-     *
      * @return cancel
      */
     @Override
@@ -71,7 +67,6 @@ public class PacketEvent extends Event implements Cancellable {
 
 
     /**
-     *
      * @param cancel set the cancel to true/false
      */
     @Override
