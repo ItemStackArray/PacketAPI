@@ -6,7 +6,7 @@ This API helps you to work with packets.
             # Main class
             private PacketInjector PACKETINJECTOR;
 
-           public void onEnable() {
+           public final void onEnable() {
 
            /* Set the decoder name from your AntiCrash */
            this.PACKETINJECTOR.setDecoder_name("your-decoder-name");
@@ -15,7 +15,7 @@ This API helps you to work with packets.
            /* Set the decompress name from your AntiCrash */
            this.PACKETINJECTOR.setDecompress_name("your-decompress-name");
 
-    }
+         }
 
             # SendPacket command
             final Player target = Bukkit.getPlayer(args[1]);
@@ -70,7 +70,7 @@ This API helps you to work with packets.
      * @param event Uninjects the player from the PacketDecoder
      */
     @EventHandler
-    private void onQuit(final PlayerQuitEvent event) {
+    private final void onQuit(final PlayerQuitEvent event) {
         // Uninject the player from your decoder
         final PacketInjector packetInjector = new PacketInjector(event.getPlayer());
         packetInjector.unInject();
