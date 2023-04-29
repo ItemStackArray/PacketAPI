@@ -5,6 +5,8 @@ This API helps you to work with packets.
 
             # Main class
             private PacketInjector PACKETINJECTOR;
+            private PermissionStruct permissionStruct;
+            private NotifyStruct notifyStruct;
 
            public final void onEnable() {
 
@@ -14,6 +16,13 @@ This API helps you to work with packets.
            this.PACKETINJECTOR.setSplitter_name("your-splitter-name");
            /* Set the decompress name from your AntiCrash */
            this.PACKETINJECTOR.setDecompress_name("your-decompress-name");
+           
+           /* Set the permission struct */
+           this.permissionStruct = new PermissionStruct();
+           /* Set the notify struct */
+           this.notifyStruct = new NotifyStruct();
+           /* Set the permission for the notify */
+           this.permissionStruct.setPERMISSION("anticrash.notify");
 
          }
 
