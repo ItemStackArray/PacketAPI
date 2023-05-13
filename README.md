@@ -4,7 +4,7 @@ This API helps you to work with packets.
 
 
             # Main class
-            private PacketInjector PACKETINJECTOR;
+            private PacketInjector packetInjector;
             private PermissionStruct permissionStruct;
             private NotifyStruct notifyStruct;
 
